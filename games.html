@@ -3,33 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Games</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; background: white; color: black; }
-        iframe { width: 800px; height: 600px; border: none; display: none; }
-    </style>
-    <script>
-        window.onload = function () {
-            const params = new URLSearchParams(window.location.search);
-            const game = params.get("game");
-
-            if (game && document.getElementById(game)) {
-                document.querySelectorAll("iframe").forEach(iframe => iframe.style.display = "none");
-                document.getElementById(game).style.display = "block";
-            } else {
-                document.body.innerHTML = "<h1>Game not found.</h1>";
-            }
-        };
-    </script>
+    <title>Arown - Games</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Select a Game</h1>
+    <header>
+        <a href="index.html" class="back">⬅ Back to Home</a>
+    </header>
 
-    <!-- Embed all games in iframes -->
-    <iframe id="brick-breaker" src="brick-breaker.html"></iframe>
-    <iframe id="flappy-square" src="flappy-square.html"></iframe>
-    <iframe id="memory-match" src="memory-match.html"></iframe>
+    <main>
+        <section id="adventure">
+            <h2>Adventure Games</h2>
+            <div class="game" onclick="playGame('adventure1')">Adventure Game 1</div>
+            <div class="game" onclick="playGame('adventure2')">Adventure Game 2</div>
+            <div class="game" onclick="playGame('adventure3')">Adventure Game 3</div>
+        </section>
 
-    <!-- More games will be added here later -->
+        <section id="action">
+            <h2>Action Games</h2>
+            <div class="game" onclick="playGame('action1')">Action Game 1</div>
+            <div class="game" onclick="playGame('action2')">Action Game 2</div>
+            <div class="game" onclick="playGame('action3')">Action Game 3</div>
+        </section>
+
+        <section id="strategy">
+            <h2>Strategy Games</h2>
+            <div class="game" onclick="playGame('strategy1')">Strategy Game 1</div>
+            <div class="game" onclick="playGame('strategy2')">Strategy Game 2</div>
+            <div class="game" onclick="playGame('strategy3')">Strategy Game 3</div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
