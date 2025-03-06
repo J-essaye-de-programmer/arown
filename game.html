@@ -3,33 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play Game</title>
-    <style>
-        #loading { text-align: center; font-size: 24px; display: block; }
-        iframe { width: 800px; height: 600px; border: none; display: none; }
-    </style>
+    <title>All Games</title>
     <script>
-        window.onload = function () {
-            const params = new URLSearchParams(window.location.search);
-            const game = params.get("game");
-            if (game) {
-                const iframe = document.getElementById("game-frame");
-                document.getElementById("loading").style.display = "block";
+        async function loadGames() {
+            const response = await fetch("games.json");
+            const games = await response.json();
+            const container = document.getElementById("games-list");
 
-                iframe.src = game + ".html";
-                iframe.onload = function () {
-                    document.getElementById("loading").style.display = "none";
-                    iframe.style.display = "block";
-                };
-            } else {
-                document.getElementById("loading").innerText = "Game not found.";
+            for (const key in games) {
+                const game = games[key];
+                const link = document.createElement("a");
+                link.href = `game.html?game=${key}`;
+                link.innerText = game.title;
+                container.appendChild(link);
             }
-        };
+        }
+
+        window.onload = loadGames;
     </script>
 </head>
 <body>
-    <h1>Loading...</h1>
-    <p id="loading">Please wait, the game is loading...</p>
-    <iframe id="game-frame"></iframe>
+    <h1>All Games</h1>
+    <div id="games-list"></div>
 </body>
 </html>
