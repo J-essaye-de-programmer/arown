@@ -8,29 +8,81 @@
 </head>
 <body>
     <header>
-        <h1>Arown</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="login.html">Login</a>
-        </nav>
+        <h1 class="logo">AROWN</h1>
+        <div class="title-bar">Game Title Bar Here</div>
+        <div class="user-info">
+            Welcome, <span id="username">User</span>. <a href="logout.html" class="logout">Logout</a>
+        </div>
     </header>
 
     <main>
-        <h2>Popular Games</h2>
-        <div class="game-grid">
-            <a href="game.html?game=brick-breaker" class="game">
-                <img src="placeholder1.jpg" alt="Brick Breaker">
-                <p>Brick Breaker</p>
+        <section class="categories">
+            <div class="category">
+                <img src="adventure.jpg" alt="Adventure">
+                <p>Adventure</p>
+            </div>
+            <div class="category">
+                <img src="action.jpg" alt="Action">
+                <p>Action</p>
+            </div>
+            <div class="category">
+                <img src="strategy.jpg" alt="Strategy">
+                <p>Strategy</p>
+            </div>
+        </section>
+
+        <section class="game-shortcuts">
+            <a href="games.html?game=game1" class="game">
+                <img src="game1.jpg" alt="Game 1">
+                <p>Game 1</p>
             </a>
-            <a href="game.html?game=flappy-square" class="game">
-                <img src="placeholder2.jpg" alt="Flappy Square">
-                <p>Flappy Square</p>
+            <a href="games.html?game=game2" class="game">
+                <img src="game2.jpg" alt="Game 2">
+                <p>Game 2</p>
             </a>
-            <a href="game.html?game=memory-match" class="game">
-                <img src="placeholder3.jpg" alt="Memory Match">
-                <p>Memory Match</p>
+            <a href="games.html?game=game3" class="game">
+                <img src="game3.jpg" alt="Game 3">
+                <p>Game 3</p>
             </a>
-        </div>
+            <a href="games.html?game=game4" class="game">
+                <img src="game4.jpg" alt="Game 4">
+                <p>Game 4</p>
+            </a>
+            <a href="games.html?game=game5" class="game">
+                <img src="game5.jpg" alt="Game 5">
+                <p>Game 5</p>
+            </a>
+            <a href="games.html?game=game6" class="game">
+                <img src="game6.jpg" alt="Game 6">
+                <p>Game 6</p>
+            </a>
+        </section>
+
+        <aside class="popular-games">
+            <h2>Games Popular and Played by Others</h2>
+            <ul>
+                <li><a href="games.html?game=popular1">Game Popular 1</a></li>
+                <li><a href="games.html?game=popular2">Game Popular 2</a></li>
+                <li><a href="games.html?game=popular3">Game Popular 3</a></li>
+                <li><a href="games.html?game=popular4">Game Popular 4</a></li>
+                <li><a href="games.html?game=popular5">Game Popular 5</a></li>
+            </ul>
+        </aside>
     </main>
+
+    <footer>
+        <section class="friends">
+            <h2>Your Friends</h2>
+            <div class="friend-list">
+                <div class="friend">👤 Friend 1</div>
+                <div class="friend">👤 Friend 2</div>
+                <div class="friend">👤 Friend 3</div>
+                <div class="friend">👤 Friend 4</div>
+            </div>
+            <a href="friends.html" class="more-friends">More Friends Here</a>
+        </section>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
