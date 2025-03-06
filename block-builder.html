@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Builder</title>
+    <style>
+        canvas { background: #f0f0f0; display: block; margin: auto; }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="500" height="500"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let block = { x: 225, y: 450, width: 50, height: 50, speed: 5 };
+        let ball = { x: 250, y: 250, radius: 10, dx: 3, dy: 3 };
+
+        function drawBlock() {
+            ctx.fillStyle = "blue";
+            ctx.fillRect(block.x, block.y, block.width, block.height);
+        }
+
+        function drawBall() {
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBlock();
+            drawBall();
+
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            if (ball.x <= 0 || ball.x >= canvas.width) ball.dx *= -1;
+            if (ball.y <= 0 || ball.y >= canvas.height) ball.dy *= -1;
+
+            if (ball.y + ball.radius >= block.y &&
+                ball.x >= block.x && ball.x <= block.x + block.width) {
+                ball.dy *= -1;
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft" && block.x > 0) block.x -= block.speed;
+            if (e.key === "ArrowRight" && block.x < canvas.width - block.width) block.x += block.speed;
+        });
+
+        update();
+    </script>
+</body>
+</html>
