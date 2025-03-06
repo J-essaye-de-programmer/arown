@@ -3,19 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games - Arown</title>
+    <title>Arown - Games</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="games.js"></script>
 </head>
 <body>
     <header>
-        <h1>Arown Games</h1>
-        <a href="index.html">Home</a>
+        <h1>Play Games on Arown</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+        </nav>
     </header>
 
-    <main id="game-container">
-        <h2>Loading game...</h2>
-    </main>
+    <div class="categories">
+        <button onclick="filterGames('adventure')">Adventure</button>
+        <button onclick="filterGames('action')">Action</button>
+        <button onclick="filterGames('puzzle')">Puzzle</button>
+    </div>
 
+    <div id="game-container">
+        <div class="game adventure" id="block-builder">
+            <h2>Block Builder</h2>
+            <iframe src="block-builder.html"></iframe>
+        </div>
+        <div class="game action">
+            <h2>Game 1</h2>
+            <iframe src="https://html5games.com/game1"></iframe>
+        </div>
+        <div class="game puzzle">
+            <h2>Game 2</h2>
+            <iframe src="https://html5games.com/game2"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function filterGames(category) {
+            document.querySelectorAll('.game').forEach(game => {
+                game.style.display = game.classList.contains(category) ? 'block' : 'none';
+            });
+        }
+    </script>
 </body>
 </html>
