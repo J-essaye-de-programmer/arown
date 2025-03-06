@@ -1,0 +1,5 @@
+{
+    "brick-breaker": { "title": "Brick Breaker", "file": "brick-breaker.html" },
+    "flappy-square": { "title": "Flappy Square", "file": "flappy-square.html" },
+    "memory-match": { "title": "Memory Match", "file": "memory-match.html" }
+}
