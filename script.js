@@ -7,12 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const dob = new Date(document.getElementById("dob").value);
             const age = calculateAge(dob);
 
-            sessionStorage.setItem("userAge", age);
+            localStorage.setItem("userAge", age);
+            localStorage.setItem("loggedIn", true);
             window.location.href = "index.html";
         });
     }
 
-    filterGamesByAge();
+    checkLoginStatus();
 });
 
 function calculateAge(dob) {
@@ -25,17 +26,16 @@ function calculateAge(dob) {
     return age;
 }
 
-function filterGamesByAge() {
-    const age = sessionStorage.getItem("userAge");
-    if (!age) return;
+function checkLoginStatus() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    const loginLink = document.querySelector("nav a[href='login.html']");
 
-    document.querySelectorAll(".game").forEach(game => {
-        const gameTitle = game.querySelector("p").innerText;
-        if (gameTitle.includes("18+")) {
-            if (age < 18) {
-                game.style.display = "none";
-            }
-        }
-    });
+    if (loggedIn) {
+        loginLink.innerText = "Logout";
+        loginLink.href = "#";
+        loginLink.addEventListener("click", () => {
+            localStorage.clear();
+            window.location.href = "index.html";
+        });
+    }
 }
-
