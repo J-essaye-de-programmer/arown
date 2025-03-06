@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game - Arown</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Play Game</title>
+    <style>
+        #loading { text-align: center; font-size: 24px; display: block; }
+        iframe { width: 800px; height: 600px; border: none; display: none; }
+    </style>
+    <script>
+        window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            const game = params.get("game");
+            if (game) {
+                const iframe = document.getElementById("game-frame");
+                document.getElementById("loading").style.display = "block";
+
+                iframe.src = game + ".html";
+                iframe.onload = function () {
+                    document.getElementById("loading").style.display = "none";
+                    iframe.style.display = "block";
+                };
+            } else {
+                document.getElementById("loading").innerText = "Game not found.";
+            }
+        };
+    </script>
 </head>
 <body>
-    <header>
-        <h1>Arown</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="login.html">Login</a>
-        </nav>
-    </header>
-
-    <main>
-        <h2>Game Loading...</h2>
-        <p id="gameTitle"></p>
-        <iframe id="gameFrame" width="800" height="600"></iframe>
-    </main>
-
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const game = urlParams.get('game');
-
-        document.getElementById("gameTitle").innerText = game ? `Playing: ${game}` : "No game selected";
-        document.getElementById("gameFrame").src = game ? `${game}.html` : "";
-    </script>
+    <h1>Loading...</h1>
+    <p id="loading">Please wait, the game is loading...</p>
+    <iframe id="game-frame"></iframe>
 </body>
 </html>
-
