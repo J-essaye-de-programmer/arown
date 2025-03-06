@@ -1,28 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const gameCards = document.querySelectorAll(".game-card");
+    const gameLinks = document.querySelectorAll(".game-card");
     const gameModal = document.getElementById("game-modal");
     const gameFrame = document.getElementById("game-frame");
 
-    gameCards.forEach((card) => {
-        card.addEventListener("click", function () {
-            const game = card.getAttribute("data-game");
-            gameFrame.src = `games/${game}.html`; // Loads the game correctly
-            gameModal.style.display = "flex"; // Ensure modal is visible
+    gameLinks.forEach((link) => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+            const gameFile = this.getAttribute("data-game-file"); // Only the game file
+            gameFrame.src = `games/${gameFile}`; // Load the actual game file inside iframe
+            gameModal.style.display = "flex";
         });
     });
 
     window.closeModal = function () {
         gameModal.style.display = "none";
-        gameFrame.src = "";
-    };
-
-    window.filterGames = function (category) {
-        gameCards.forEach((card) => {
-            if (category === "all" || card.classList.contains(category)) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
-        });
+        gameFrame.src = ""; // Clear the iframe when closing
     };
 });
