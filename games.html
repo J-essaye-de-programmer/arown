@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arown - Games</title>
+    <title>Arown - All Games</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Play Games on Arown</h1>
+        <h1>All Games</h1>
         <nav>
             <a href="index.html">Home</a>
             <a href="login.html">Login</a>
@@ -16,32 +16,40 @@
     </header>
 
     <div class="categories">
+        <button onclick="filterGames('all')">All</button>
         <button onclick="filterGames('adventure')">Adventure</button>
         <button onclick="filterGames('action')">Action</button>
         <button onclick="filterGames('puzzle')">Puzzle</button>
+        <button onclick="filterGames('strategy')">Strategy</button>
+        <button onclick="filterGames('arcade')">Arcade</button>
     </div>
 
-    <div id="game-container">
-        <div class="game adventure" id="block-builder">
-            <h2>Block Builder</h2>
-            <iframe src="block-builder.html"></iframe>
+    <div id="game-container" class="game-grid">
+        <!-- Block Builder Game -->
+        <div class="game-card adventure" data-game="block-builder">
+            <img src="images/block-builder.jpg" alt="Block Builder">
+            <p>Block Builder</p>
         </div>
-        <div class="game action">
-            <h2>Game 1</h2>
-            <iframe src="https://html5games.com/game1"></iframe>
+        <!-- Friday Night Funkin' Game -->
+        <div class="game-card action" data-game="friday-night-funkin">
+            <img src="images/friday-night-funkin.jpg" alt="Friday Night Funkin'">
+            <p>Friday Night Funkin'</p>
         </div>
-        <div class="game puzzle">
-            <h2>Game 2</h2>
-            <iframe src="https://html5games.com/game2"></iframe>
+        <!-- Pigeon Ascent Game -->
+        <div class="game-card strategy" data-game="pigeon-ascent">
+            <img src="images/pigeon-ascent.jpg" alt="Pigeon Ascent">
+            <p>Pigeon Ascent</p>
+        </div>
+        <!-- Additional games go here, following the same structure -->
+    </div>
+
+    <div id="game-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <iframe id="game-frame" src="" frameborder="0"></iframe>
         </div>
     </div>
 
-    <script>
-        function filterGames(category) {
-            document.querySelectorAll('.game').forEach(game => {
-                game.style.display = game.classList.contains(category) ? 'block' : 'none';
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
