@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     gameCards.forEach((card) => {
         card.addEventListener("click", function () {
             const game = card.getAttribute("data-game");
-            gameFrame.src = `games/${game}.html`;
-            gameModal.style.display = "block";
+            gameFrame.src = `games/${game}.html`; // Loads the game correctly
+            gameModal.style.display = "flex"; // Ensure modal is visible
         });
     });
 
