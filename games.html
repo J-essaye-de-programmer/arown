@@ -3,37 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arown - Games</title>
+    <title>Games - Arown</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="games.js"></script>
 </head>
 <body>
     <header>
-        <a href="index.html" class="back">⬅ Back to Home</a>
+        <h1>Arown Games</h1>
+        <a href="index.html">Home</a>
     </header>
 
-    <main>
-        <section id="adventure">
-            <h2>Adventure Games</h2>
-            <div class="game" onclick="playGame('adventure1')">Adventure Game 1</div>
-            <div class="game" onclick="playGame('adventure2')">Adventure Game 2</div>
-            <div class="game" onclick="playGame('adventure3')">Adventure Game 3</div>
-        </section>
-
-        <section id="action">
-            <h2>Action Games</h2>
-            <div class="game" onclick="playGame('action1')">Action Game 1</div>
-            <div class="game" onclick="playGame('action2')">Action Game 2</div>
-            <div class="game" onclick="playGame('action3')">Action Game 3</div>
-        </section>
-
-        <section id="strategy">
-            <h2>Strategy Games</h2>
-            <div class="game" onclick="playGame('strategy1')">Strategy Game 1</div>
-            <div class="game" onclick="playGame('strategy2')">Strategy Game 2</div>
-            <div class="game" onclick="playGame('strategy3')">Strategy Game 3</div>
-        </section>
+    <main id="game-container">
+        <h2>Loading game...</h2>
     </main>
 
-    <script src="script.js"></script>
 </body>
 </html>
