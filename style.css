@@ -1,32 +1,117 @@
 body {
     font-family: Arial, sans-serif;
-    background: white;
+    background-color: white;
     color: black;
-    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 header {
-    background: #007bff;
+    background-color: black;
     color: white;
-    padding: 20px;
-    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
 }
 
-.game-grid {
+.logo {
+    font-size: 24px;
+    color: blue;
+}
+
+.title-bar {
+    font-size: 18px;
+}
+
+.user-info {
+    font-size: 16px;
+}
+
+.logout {
+    color: red;
+    text-decoration: none;
+}
+
+.categories {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    margin: 20px 0;
+}
+
+.category {
+    text-align: center;
+    margin: 0 20px;
+}
+
+.category img {
+    width: 100px;
+    height: 100px;
+    border: 2px solid black;
+}
+
+.game-shortcuts {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .game {
-    background: #f0f0f0;
-    margin: 10px;
-    padding: 20px;
-    border-radius: 10px;
-    transition: 0.3s;
+    text-align: center;
 }
 
-.game:hover {
-    transform: scale(1.05);
-    background: #d9e9ff;
+.game img {
+    width: 120px;
+    height: 80px;
+    border: 2px solid black;
+}
+
+.popular-games {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    right: 0;
+    top: 50px;
+    width: 200px;
+}
+
+.popular-games ul {
+    list-style: none;
+    padding: 0;
+}
+
+.popular-games li {
+    margin: 5px 0;
+}
+
+.popular-games a {
+    color: white;
+    text-decoration: none;
+}
+
+.friends {
+    background-color: red;
+    padding: 10px;
+    text-align: center;
+}
+
+.friend-list {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.friend {
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.more-friends {
+    display: block;
+    margin-top: 10px;
+    color: white;
+    text-decoration: none;
 }
