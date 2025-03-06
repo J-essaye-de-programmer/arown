@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: white; color: black; }
+        iframe { width: 800px; height: 600px; border: none; margin-top: 20px; }
+    </style>
+    <script>
+        window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            const game = params.get("game");
+            if (game) {
+                document.getElementById("game-frame").src = "games/" + game + ".html";
+            } else {
+                document.body.innerHTML = "<h1>Game not found.</h1>";
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>Loading Game...</h1>
+    <iframe id="game-frame"></iframe>
+</body>
+</html>
