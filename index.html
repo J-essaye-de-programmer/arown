@@ -5,26 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arown - Play Free Games</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
 </head>
 <body>
-
     <header>
         <h1>Arown</h1>
         <nav>
             <a href="index.html">Home</a>
+            <a href="games.html">All Games</a>
             <a href="login.html">Login</a>
         </nav>
-        <div class="welcome">
-            Welcome, <span id="username">Guest</span>. <a href="#" id="logout">Logout</a>
-        </div>
     </header>
 
     <main>
         <h2>Popular Games</h2>
         <div class="game-grid">
-            <a href="games.html?game=blockbuilder" class="game">
-                <img src="blockbuilder.jpg" alt="Block Builder">
+            <a href="games.html?game=block-builder" class="game">
+                <img src="block-builder.jpg" alt="Block Builder">
                 <p>Block Builder</p>
             </a>
             <a href="games.html?game=game1" class="game">
@@ -36,35 +32,8 @@
                 <p>Game 2</p>
             </a>
         </div>
-
-        <h2>Categories</h2>
-        <div class="categories">
-            <button onclick="showCategory('adventure')">Adventure</button>
-            <button onclick="showCategory('action')">Action</button>
-            <button onclick="showCategory('strategy')">Strategy</button>
-        </div>
-
-        <div id="category-display"></div>
     </main>
 
-    <aside class="sidebar">
-        <h3>Games Popular and Played by Others</h3>
-        <ul id="most-played">
-            <!-- JavaScript will insert most played games here -->
-        </ul>
-    </aside>
-
-    <footer>
-        <div class="friends">
-            <h3>Your Friends</h3>
-            <div class="friend-icons">
-                <span>👤 Friend 1</span>
-                <span>👤 Friend 2</span>
-                <span>👤 Friend 3</span>
-                <a href="#">More Friends</a>
-            </div>
-        </div>
-    </footer>
-
+    <script src="script.js"></script>
 </body>
 </html>
