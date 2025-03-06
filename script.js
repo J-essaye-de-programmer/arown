@@ -1,4 +1,4 @@
-const SCALEDRONE_CHANNEL_ID = "YOUR_SCALEDRONE_CHANNEL_ID"; // Replace with your ScaleDrone Channel ID
+const SCALEDRONE_CHANNEL_ID = "J1ipAEoQIa1Xv2li"; // Your ScaleDrone Channel ID
 
 const drone = new ScaleDrone(SCALEDRONE_CHANNEL_ID);
 const roomName = "observable-room";
@@ -32,4 +32,6 @@ function displayMessage(message) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-console.log("Chatroom initialized!");
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Vernicle is ready!");
+});
