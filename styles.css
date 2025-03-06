@@ -112,3 +112,17 @@ button:hover {
 button {
     margin-left: 10px;
 }
+.games {
+    margin-top: 30px;
+}
+
+.game {
+    margin-bottom: 30px;
+}
+
+.game iframe {
+    width: 600px;
+    height: 400px;
+    border-radius: 10px;
+}
+
