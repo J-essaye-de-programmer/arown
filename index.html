@@ -5,48 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arown - Play Free Games</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
+
     <header>
-        <h1 class="logo">AROWN</h1>
-        <div class="title-bar">Game Title Bar Here</div>
-        <div class="user-info">
-            Welcome, <span id="username">Guest</span>. 
-            <a href="#" id="logout" class="logout">Logout</a>
+        <h1>Arown</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+        </nav>
+        <div class="welcome">
+            Welcome, <span id="username">Guest</span>. <a href="#" id="logout">Logout</a>
         </div>
     </header>
 
     <main>
-        <section class="categories">
-            <div class="category"><a href="games.html#adventure"><img src="adventure.jpg" alt="Adventure"><p>Adventure</p></a></div>
-            <div class="category"><a href="games.html#action"><img src="action.jpg" alt="Action"><p>Action</p></a></div>
-            <div class="category"><a href="games.html#strategy"><img src="strategy.jpg" alt="Strategy"><p>Strategy</p></a></div>
-        </section>
+        <h2>Popular Games</h2>
+        <div class="game-grid">
+            <a href="games.html?game=blockbuilder" class="game">
+                <img src="blockbuilder.jpg" alt="Block Builder">
+                <p>Block Builder</p>
+            </a>
+            <a href="games.html?game=game1" class="game">
+                <img src="game1.jpg" alt="Game 1">
+                <p>Game 1</p>
+            </a>
+            <a href="games.html?game=game2" class="game">
+                <img src="game2.jpg" alt="Game 2">
+                <p>Game 2</p>
+            </a>
+        </div>
 
-        <section class="game-shortcuts">
-            <a href="games.html?game=game1" class="game"><img src="game1.jpg" alt="Game 1"><p>Game 1</p></a>
-            <a href="games.html?game=game2" class="game"><img src="game2.jpg" alt="Game 2"><p>Game 2</p></a>
-            <a href="games.html?game=game3" class="game"><img src="game3.jpg" alt="Game 3"><p>Game 3</p></a>
-        </section>
+        <h2>Categories</h2>
+        <div class="categories">
+            <button onclick="showCategory('adventure')">Adventure</button>
+            <button onclick="showCategory('action')">Action</button>
+            <button onclick="showCategory('strategy')">Strategy</button>
+        </div>
 
-        <aside class="popular-games">
-            <h2>Games Popular and Played by Others</h2>
-            <ul id="popular-games-list"></ul>
-        </aside>
+        <div id="category-display"></div>
     </main>
 
+    <aside class="sidebar">
+        <h3>Games Popular and Played by Others</h3>
+        <ul id="most-played">
+            <!-- JavaScript will insert most played games here -->
+        </ul>
+    </aside>
+
     <footer>
-        <section class="friends">
-            <h2>Your Friends</h2>
-            <div class="friend-list">
-                <div class="friend">👤 Friend 1</div>
-                <div class="friend">👤 Friend 2</div>
-                <div class="friend">👤 Friend 3</div>
+        <div class="friends">
+            <h3>Your Friends</h3>
+            <div class="friend-icons">
+                <span>👤 Friend 1</span>
+                <span>👤 Friend 2</span>
+                <span>👤 Friend 3</span>
+                <a href="#">More Friends</a>
             </div>
-            <a href="friends.html" class="more-friends">More Friends Here</a>
-        </section>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
 </body>
 </html>
