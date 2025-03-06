@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game - Arown</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Arown</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Game Loading...</h2>
+        <p id="gameTitle"></p>
+        <iframe id="gameFrame" width="800" height="600"></iframe>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const game = urlParams.get('game');
+
+        document.getElementById("gameTitle").innerText = game ? `Playing: ${game}` : "No game selected";
+        document.getElementById("gameFrame").src = game ? `${game}.html` : "";
+    </script>
+</body>
+</html>
 
