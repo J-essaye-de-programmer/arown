@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Square</title>
+    <style>
+        canvas { background: #ccc; display: block; margin: auto; }
+    </style>
+</head>
+<body>
+    <h1>Flappy Square</h1>
+    <canvas id="gameCanvas" width="400" height="500"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let squareY = canvas.height / 2;
+        let gravity = 0.6, lift = -10, velocity = 0;
+
+        function drawSquare() {
+            ctx.fillStyle = "#ff0000";
+            ctx.fillRect(50, squareY, 20, 20);
+        }
+
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawSquare();
+
+            velocity += gravity;
+            squareY += velocity;
+
+            if (squareY + 20 > canvas.height || squareY < 0) {
+                alert("Game Over!");
+                document.location.reload();
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        document.addEventListener("keydown", () => velocity = lift);
+        update();
+    </script>
+</body>
+</html>
