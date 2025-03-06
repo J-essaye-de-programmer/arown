@@ -1,33 +1,24 @@
-document.addEventListener("DOMContentLoaded", () => {
-    let username = localStorage.getItem("username") || "Guest";
-    document.getElementById("username").textContent = username;
+function showCategory(category) {
+    const categoryGames = {
+        "adventure": ["Game A1", "Game A2", "Game A3"],
+        "action": ["Game B1", "Game B2", "Game B3"],
+        "strategy": ["Game C1", "Game C2", "Game C3"]
+    };
 
-    document.getElementById("logout").addEventListener("click", () => {
-        localStorage.removeItem("username");
-        window.location.reload();
-    });
+    let display = document.getElementById("category-display");
+    display.innerHTML = `<h3>${category} Games</h3>`;
 
-    updatePopularGames();
-});
-
-function playGame(gameId) {
-    let playedGames = JSON.parse(localStorage.getItem("playedGames")) || {};
-    playedGames[gameId] = (playedGames[gameId] || 0) + 1;
-    localStorage.setItem("playedGames", JSON.stringify(playedGames));
-
-    alert("Loading " + gameId);
-    updatePopularGames();
+    if (categoryGames[category]) {
+        categoryGames[category].forEach(game => {
+            let gameDiv = document.createElement("div");
+            gameDiv.innerHTML = `<p>${game}</p>`;
+            display.appendChild(gameDiv);
+        });
+    } else {
+        display.innerHTML = "<p>No games available in this category.</p>";
+    }
 }
 
-function updatePopularGames() {
-    let playedGames = JSON.parse(localStorage.getItem("playedGames")) || {};
-    let sortedGames = Object.entries(playedGames).sort((a, b) => b[1] - a[1]).slice(0, 5);
-
-    let list = document.getElementById("popular-games-list");
-    list.innerHTML = "";
-    sortedGames.forEach(([game, plays]) => {
-        let listItem = document.createElement("li");
-        listItem.innerHTML = `<a href="games.html?game=${game}">${game.replace(/\d+/g, '')} (${plays} plays)</a>`;
-        list.appendChild(listItem);
-    });
-}
+// Fake Most Played Games
+let mostPlayedGames = ["Game 1", "Game 2", "Game 3", "Block Builder"];
+document.getElementById("most-played").innerHTML = mostPlayedGames.map(g => `<li>${g}</li>`).join("");
