@@ -58,13 +58,11 @@ header {
 }
 
 .game {
+    cursor: pointer;
     text-align: center;
-}
-
-.game img {
-    width: 120px;
-    height: 80px;
-    border: 2px solid black;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 5px;
 }
 
 .popular-games {
@@ -75,43 +73,4 @@ header {
     right: 0;
     top: 50px;
     width: 200px;
-}
-
-.popular-games ul {
-    list-style: none;
-    padding: 0;
-}
-
-.popular-games li {
-    margin: 5px 0;
-}
-
-.popular-games a {
-    color: white;
-    text-decoration: none;
-}
-
-.friends {
-    background-color: red;
-    padding: 10px;
-    text-align: center;
-}
-
-.friend-list {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.friend {
-    background: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.more-friends {
-    display: block;
-    margin-top: 10px;
-    color: white;
-    text-decoration: none;
 }
