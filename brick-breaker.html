@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick Breaker</title>
+    <style>
+        canvas { background: #eee; display: block; margin: auto; }
+    </style>
+</head>
+<body>
+    <h1>Brick Breaker</h1>
+    <canvas id="gameCanvas" width="480" height="320"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let paddleX = (canvas.width - 75) / 2;
+        let ballX = canvas.width / 2, ballY = canvas.height - 30;
+        let ballDX = 2, ballDY = -2, paddleDX = 7;
+        let rightPressed = false, leftPressed = false;
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Right" || e.key === "ArrowRight") rightPressed = true;
+            if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = true;
+        });
+
+        document.addEventListener("keyup", (e) => {
+            if (e.key === "Right" || e.key === "ArrowRight") rightPressed = false;
+            if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = false;
+        });
+
+        function drawPaddle() {
+            ctx.fillStyle = "#0095DD";
+            ctx.fillRect(paddleX, canvas.height - 10, 75, 10);
+        }
+
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPaddle();
+            drawBall();
+
+            ballX += ballDX;
+            ballY += ballDY;
+
+            if (ballX + 10 > canvas.width || ballX - 10 < 0) ballDX = -ballDX;
+            if (ballY - 10 < 0) ballDY = -ballDY;
+            if (ballY + 10 > canvas.height) {
+                alert("Game Over");
+                document.location.reload();
+            }
+
+            if (rightPressed && paddleX < canvas.width - 75) paddleX += paddleDX;
+            if (leftPressed && paddleX > 0) paddleX -= paddleDX;
+
+            if (ballY + 10 >= canvas.height - 10 && ballX >= paddleX && ballX <= paddleX + 75) {
+                ballDY = -ballDY;
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        update();
+    </script>
+</body>
+</html>
