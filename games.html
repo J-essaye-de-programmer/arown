@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Games</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: white; color: black; }
+        iframe { width: 800px; height: 600px; border: none; display: none; }
+    </style>
+    <script>
+        window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            const game = params.get("game");
+
+            if (game && document.getElementById(game)) {
+                document.querySelectorAll("iframe").forEach(iframe => iframe.style.display = "none");
+                document.getElementById(game).style.display = "block";
+            } else {
+                document.body.innerHTML = "<h1>Game not found.</h1>";
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>Select a Game</h1>
+
+    <!-- Embed all games in iframes -->
+    <iframe id="brick-breaker" src="brick-breaker.html"></iframe>
+    <iframe id="flappy-square" src="flappy-square.html"></iframe>
+    <iframe id="memory-match" src="memory-match.html"></iframe>
+
+    <!-- More games will be added here later -->
+</body>
+</html>
