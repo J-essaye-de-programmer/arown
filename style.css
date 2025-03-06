@@ -1,76 +1,43 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: white;
+    background: white;
     color: black;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: black;
+    background: blue;
     color: white;
+    padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
 }
 
-.logo {
-    font-size: 24px;
-    color: blue;
-}
-
-.title-bar {
-    font-size: 18px;
-}
-
-.user-info {
-    font-size: 16px;
-}
-
-.logout {
-    color: red;
-    text-decoration: none;
-}
-
-.categories {
+.game-grid {
     display: flex;
-    justify-content: center;
-    margin: 20px 0;
+    gap: 10px;
 }
 
-.category {
-    text-align: center;
-    margin: 0 20px;
-}
-
-.category img {
-    width: 100px;
-    height: 100px;
-    border: 2px solid black;
-}
-
-.game-shortcuts {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.game {
-    cursor: pointer;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid black;
-    margin: 5px;
-}
-
-.popular-games {
-    background-color: blue;
+.categories button {
+    background: blue;
     color: white;
     padding: 10px;
-    position: fixed;
-    right: 0;
-    top: 50px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar {
+    background: lightblue;
+    padding: 10px;
     width: 200px;
+}
+
+footer {
+    background: red;
+    color: white;
+    padding: 10px;
+    text-align: center;
 }
