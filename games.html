@@ -24,23 +24,21 @@
         <button onclick="filterGames('arcade')">Arcade</button>
     </div>
 
-    <div id="game-container" class="game-grid">
-        <!-- Block Builder Game -->
-        <div class="game-card adventure" data-game="block-builder">
-            <img src="images/block-builder.jpg" alt="Block Builder">
-            <p>Block Builder</p>
-        </div>
-        <!-- Friday Night Funkin' Game -->
-        <div class="game-card action" data-game="friday-night-funkin">
-            <img src="images/friday-night-funkin.jpg" alt="Friday Night Funkin'">
-            <p>Friday Night Funkin'</p>
-        </div>
-        <!-- Pigeon Ascent Game -->
-        <div class="game-card strategy" data-game="pigeon-ascent">
-            <img src="images/pigeon-ascent.jpg" alt="Pigeon Ascent">
-            <p>Pigeon Ascent</p>
-        </div>
-        <!-- Additional games go here, following the same structure -->
+ <div class="game-card" data-game-file="block_builder.html">
+    <img src="games/images/block_builder.png" alt="Block Builder">
+    <p>Block Builder</p>
+</div>
+
+<div class="game-card" data-game-file="fnf.html">
+    <img src="games/images/fnf.png" alt="Friday Night Funkin'">
+    <p>Friday Night Funkin'</p>
+</div>
+
+<div class="game-card" data-game-file="pigeon_ascent.html">
+    <img src="games/images/pigeon_ascent.png" alt="Pigeon Ascent">
+    <p>Pigeon Ascent</p>
+</div>
+
     </div>
 
     <div id="game-modal" class="modal">
