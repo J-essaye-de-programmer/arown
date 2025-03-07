@@ -3,128 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vernicle Games</title>
+    <title>Arown Games</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; background: #222; color: white; }
-        .game-container { display: none; width: 100%; height: 80vh; }
-        .menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-        .menu button { padding: 10px; font-size: 18px; cursor: pointer; }
-        canvas { background: black; display: block; margin: auto; }
+        body { text-align: center; font-family: Arial, sans-serif; }
+        canvas { border: 2px solid black; margin-top: 20px; }
+        .game-container { display: none; }
+        .menu button { padding: 10px; margin: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h1>Vernicle Games</h1>
-    <div class="menu" id="menu">
-        <button onclick="startGame('brickBreaker')">Brick Breaker</button>
-        <button onclick="startGame('flappyBlock')">Flappy Block</button>
-        <button onclick="startGame('reactionTimer')">Reaction Timer</button>
-        <button onclick="startGame('mazeEscape')">Maze Escape</button>
-        <button onclick="startGame('memoryMatch')">Memory Match</button>
-        <button onclick="startGame('snake')">Snake</button>
-        <button onclick="startGame('ticTacToe')">Tic-Tac-Toe</button>
-        <button onclick="startGame('dodgeBlocks')">Dodge the Blocks</button>
-        <button onclick="startGame('mathChallenge')">Math Challenge</button>
-        <button onclick="startGame('colorSwitcher')">Color Switcher</button>
-        <button onclick="startGame('wordScramble')">Word Scramble</button>
-        <button onclick="startGame('catchFalling')">Catch Falling Objects</button>
-        <button onclick="startGame('platformJumper')">Platform Jumper</button>
-        <button onclick="startGame('speedClicker')">Speed Clicker</button>
-        <button onclick="startGame('game2048')">2048</button>
+
+    <h1>Games Deploy</h1>
+    <div class="menu">
+        <button onclick="startGame('flappy')">Flappy Block</button>
+        <button onclick="startGame('brick')">Brick Breaker</button>
+        <button onclick="startGame('asteroid')">Asteroid Dodge</button>
+        <button onclick="startGame('speed')">Speed Runner</button>
+        <button onclick="startGame('shooter')">Target Shooter</button>
+        <button onclick="startGame('maze')">Maze Escape</button>
+        <button onclick="startGame('bounce')">Paddle Bounce</button>
     </div>
-    
-    <div id="gameContainer" class="game-container">
-        <button onclick="backToMenu()">Back to Menu</button>
-        <canvas id="gameCanvas"></canvas>
+
+    <div id="flappy" class="game-container">
+        <h2>Flappy Block</h2>
+        <p>Difficulty: 
+            <button onclick="setDifficulty('easy')">Easy</button>
+            <button onclick="setDifficulty('normal')">Normal</button>
+            <button onclick="setDifficulty('hard')">Hard</button>
+        </p>
+        <canvas id="flappyCanvas" width="400" height="500"></canvas>
+        <button onclick="goBack()">Back</button>
     </div>
 
     <script>
-        function startGame(game) {
-            document.getElementById('menu').style.display = 'none';
-            document.getElementById('gameContainer').style.display = 'block';
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 800;
-            canvas.height = 600;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            if (game === 'brickBreaker') {
-                startBrickBreaker(ctx, canvas);
-            } else if (game === 'flappyBlock') {
-                startFlappyBlock(ctx, canvas);
-            } else if (game === 'reactionTimer') {
-                startReactionTimer(ctx, canvas);
-            } else if (game === 'snake') {
-                startSnake(ctx, canvas);
-            } else {
-                ctx.fillStyle = 'white';
-                ctx.font = '30px Arial';
-                ctx.fillText("Coming Soon!", canvas.width / 2 - 100, canvas.height / 2);
-            }
+        let difficulty = "normal";
+        
+        function setDifficulty(level) {
+            difficulty = level;
+            alert("Difficulty set to " + level);
         }
 
-        function backToMenu() {
-            document.getElementById('menu').style.display = 'flex';
-            document.getElementById('gameContainer').style.display = 'none';
+        function startGame(gameId) {
+            document.querySelector('.menu').style.display = 'none';
+            document.getElementById(gameId).style.display = 'block';
+            if (gameId === 'flappy') startFlappyBlock();
         }
 
-        function startBrickBreaker(ctx, canvas) {
-            let ballX = canvas.width / 2, ballY = canvas.height - 30, ballDX = 2, ballDY = -2;
-            let paddleX = (canvas.width - 100) / 2, paddleWidth = 100, paddleHeight = 10;
-            let rightPressed = false, leftPressed = false;
+        function goBack() {
+            document.querySelectorAll('.game-container').forEach(div => div.style.display = 'none');
+            document.querySelector('.menu').style.display = 'block';
+        }
 
-            document.addEventListener("keydown", keyDownHandler);
-            document.addEventListener("keyup", keyUpHandler);
+        function startFlappyBlock() {
+            let canvas = document.getElementById('flappyCanvas');
+            let ctx = canvas.getContext('2d');
+            let block = { x: 50, y: 200, size: 20, gravity: 0.5, velocity: 0 };
+            let obstacles = [];
+            let gameOver = false;
+            let speed = difficulty === "easy" ? 2 : difficulty === "normal" ? 3 : 4;
 
-            function keyDownHandler(e) {
-                if (e.key === "Right" || e.key === "ArrowRight") rightPressed = true;
-                else if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = true;
+            function generateObstacle() {
+                let gap = 100;
+                let minHeight = 50;
+                let maxHeight = 250;
+                let topHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
+                obstacles.push({ x: canvas.width, topHeight: topHeight, bottomY: topHeight + gap, width: 50 });
             }
-            function keyUpHandler(e) {
-                if (e.key === "Right" || e.key === "ArrowRight") rightPressed = false;
-                else if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = false;
-            }
 
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.beginPath();
-                ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
-                ctx.fillStyle = "white";
-                ctx.fill();
-                ctx.closePath();
-                ctx.fillRect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-
-                if (ballX + ballDX > canvas.width - 10 || ballX + ballDX < 10) ballDX = -ballDX;
-                if (ballY + ballDY < 10) ballDY = -ballDY;
-                else if (ballY + ballDY > canvas.height - paddleHeight) {
-                    if (ballX > paddleX && ballX < paddleX + paddleWidth) ballDY = -ballDY;
-                    else return;
+            function update() {
+                if (gameOver) return;
+                block.velocity += block.gravity;
+                block.y += block.velocity;
+                if (block.y >= canvas.height - block.size || block.y <= 0) {
+                    gameOver = true;
+                    alert("Game Over!");
+                    return;
                 }
-
-                if (rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 7;
-                else if (leftPressed && paddleX > 0) paddleX -= 7;
-
-                ballX += ballDX;
-                ballY += ballDY;
-                requestAnimationFrame(draw);
+                obstacles.forEach(obstacle => {
+                    obstacle.x -= speed;
+                    if (
+                        block.x < obstacle.x + obstacle.width &&
+                        block.x + block.size > obstacle.x &&
+                        (block.y < obstacle.topHeight || block.y + block.size > obstacle.bottomY)
+                    ) {
+                        gameOver = true;
+                        alert("Game Over!");
+                    }
+                });
+                obstacles = obstacles.filter(obstacle => obstacle.x + obstacle.width > 0);
+                if (Math.random() < 0.02) generateObstacle();
             }
-            draw();
-        }
-
-        function startFlappyBlock(ctx, canvas) {
-            let y = canvas.height / 2, velocity = 0, gravity = 0.6;
-            document.addEventListener("keydown", () => velocity = -10);
 
             function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = "yellow";
-                ctx.fillRect(50, y, 20, 20);
-                velocity += gravity;
-                y += velocity;
-                if (y > canvas.height - 20) y = canvas.height - 20;
-                requestAnimationFrame(draw);
+                ctx.fillStyle = "blue";
+                ctx.fillRect(block.x, block.y, block.size, block.size);
+                ctx.fillStyle = "green";
+                obstacles.forEach(obstacle => {
+                    ctx.fillRect(obstacle.x, 0, obstacle.width, obstacle.topHeight);
+                    ctx.fillRect(obstacle.x, obstacle.bottomY, obstacle.width, canvas.height - obstacle.bottomY);
+                });
             }
-            draw();
+
+            function gameLoop() {
+                update();
+                draw();
+                if (!gameOver) requestAnimationFrame(gameLoop);
+            }
+
+            document.addEventListener("keydown", () => {
+                block.velocity = -7;
+            });
+
+            gameLoop();
         }
     </script>
+
 </body>
 </html>
