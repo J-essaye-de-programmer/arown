@@ -74,11 +74,90 @@
         }
 
         function flappyBlock() { 
-            /* Flappy Block code (unchanged) */
-        }
+                   let block = { x: 100, y: 250, width: 20, height: 20, velocity: 0 };
+            let gravity = 0.5, jump = -7;
+            let pipes = [], pipeWidth = 50, pipeGap = 150, pipeSpeed = 3;
 
+            function createPipe() {
+                let topHeight = Math.random() * (canvas.height - pipeGap - 100) + 50;
+                pipes.push({ x: canvas.width, top: topHeight, bottom: topHeight + pipeGap });
+            }
+
+            setInterval(createPipe, 2000);
+            document.addEventListener("keydown", () => { if (gameStarted) block.velocity = jump; });
+
+            gameInterval = setInterval(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                block.y += block.velocity;
+                block.velocity += gravity;
+
+                if (block.y + block.height > canvas.height || block.y < 0) endGame(); // Death condition
+
+                pipes.forEach(pipe => {
+                    pipe.x -= pipeSpeed;
+                    ctx.fillStyle = "green";
+                    ctx.fillRect(pipe.x, 0, pipeWidth, pipe.top);
+                    ctx.fillRect(pipe.x, pipe.bottom, pipeWidth, canvas.height - pipe.bottom);
+                    if (block.x < pipe.x + pipeWidth && block.x + block.width > pipe.x &&
+                        (block.y < pipe.top || block.y + block.height > pipe.bottom)) {
+                        endGame(); // Collision
+                    }
+                });
+
+                ctx.fillStyle = "red";
+                ctx.fillRect(block.x, block.y, block.width, block.height);
+            }, 20);
+        }
         function brickBreaker() { 
-            /* Brick Breaker code (unchanged) */
+           let ball = { x: 400, y: 500, dx: 3 * difficulty, dy: -3 * difficulty, radius: 10 };
+            let paddle = { x: 350, y: 570, width: 100, height: 10 };
+            let bricks = [], rows = 5, cols = 10, brickWidth = 75, brickHeight = 20, brickPadding = 5;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    bricks.push({ x: c * (brickWidth + brickPadding) + 30, y: r * (brickHeight + brickPadding) + 30, status: 1 });
+                }
+            }
+
+            document.addEventListener("mousemove", (e) => {
+                let rect = canvas.getBoundingClientRect();
+                paddle.x = e.clientX - rect.left - paddle.width / 2;
+            });
+
+            gameInterval = setInterval(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ball.x += ball.dx; ball.y += ball.dy;
+
+                if (ball.x < 0 || ball.x > canvas.width) ball.dx *= -1;
+                if (ball.y < 0) ball.dy *= -1;
+                if (ball.y > canvas.height) endGame(); // Death
+
+                if (ball.x > paddle.x && ball.x < paddle.x + paddle.width && ball.y + ball.radius > paddle.y) {
+                    ball.dy *= -1;
+                }
+
+                bricks.forEach(brick => {
+                    if (brick.status && ball.x > brick.x && ball.x < brick.x + brickWidth &&
+                        ball.y > brick.y && ball.y < brick.y + brickHeight) {
+                        brick.status = 0;
+                        ball.dy *= -1;
+                    }
+                });
+
+                ctx.fillStyle = "blue";
+                ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+                ctx.fillStyle = "red";
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                bricks.forEach(brick => {
+                    if (brick.status) {
+                        ctx.fillStyle = "green";
+                        ctx.fillRect(brick.x, brick.y, brickWidth, brickHeight);
+                    }
+                });
+            }, 20);
         }
 
         function asteroidDodger() {
@@ -178,12 +257,97 @@
         }
 
         function memoryMatch() {
-            /* Code for Memory Match */
+            let canvas = document.getElementById("memoryCanvas");
+            let ctx = canvas.getContext("2d");
+            alert("Memory Match - " + difficulty);
+            
+            let cards = [];
+            let revealed = [];
+            let matched = 0;
+            let colors = ["red", "blue", "green", "yellow", "purple", "orange"];
+            let gridSize = 3;
+            
+            if (difficulty === "easy") gridSize = 2;
+            if (difficulty === "hard") gridSize = 4;
+            
+            function shuffleCards() {
+                let allColors = [...colors, ...colors].sort(() => Math.random() - 0.5);
+                for (let i = 0; i < gridSize * gridSize; i++) {
+                    cards.push({ color: allColors[i], revealed: false });
+                }
+            }
+
+            shuffleCards();
+
+            function drawBoard() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < cards.length; i++) {
+                    let x = (i % gridSize) * 100;
+                    let y = Math.floor(i / gridSize) * 100;
+                    ctx.fillStyle = cards[i].revealed ? cards[i].color : "gray";
+                    ctx.fillRect(x, y, 100, 100);
+                }
+            }
+
+            canvas.addEventListener("click", function(event) {
+                let x = Math.floor(event.offsetX / 100);
+                let y = Math.floor(event.offsetY / 100);
+                let index = y * gridSize + x;
+                if (!cards[index].revealed && revealed.length < 2) {
+                    cards[index].revealed = true;
+                    revealed.push(index);
+                    drawBoard();
+                    
+                    if (revealed.length === 2) {
+                        setTimeout(() => {
+                            if (cards[revealed[0]].color === cards[revealed[1]].color) {
+                                matched += 2;
+                            } else {
+                                cards[revealed[0]].revealed = false;
+                                cards[revealed[1]].revealed = false;
+                            }
+                            revealed = [];
+                            drawBoard();
+                        }, 1000);
+                    }
+                }
+            });
+
+            drawBoard();
         }
 
         function snakeChallenge() {
-            /* Code for Snake Challenge */
+     let canvas = document.getElementById("snakeCanvas");
+            let ctx = canvas.getContext("2d");
+            alert("Snake Challenge - " + difficulty);
+
+            let snake = [{ x: 200, y: 200 }];
+            let direction = "right";
+            let food = { x: 100, y: 100 };
+
+            function move() {
+                let head = { ...snake[0] };
+                if (direction === "right") head.x += 20;
+                if (direction === "left") head.x -= 20;
+                if (direction === "up") head.y -= 20;
+                if (direction === "down") head.y += 20;
+                
+                snake.unshift(head);
+                snake.pop();
+
+                draw();
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "green";
+                snake.forEach(s => ctx.fillRect(s.x, s.y, 20, 20));
+            }
+
+            setInterval(move, 200);
         }
+
     </script>
+
 </body>
 </html>
