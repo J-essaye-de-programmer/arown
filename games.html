@@ -3,190 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>50 Fun Games for Students</title>
+    <title>Vernicle Games</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .game {
-            margin: 20px 0;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .game h2 {
-            margin-top: 0;
-        }
-        .game iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; background: #222; color: white; }
+        .game-container { display: none; width: 100%; height: 80vh; }
+        .menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .menu button { padding: 10px; font-size: 18px; cursor: pointer; }
+        canvas { background: black; display: block; margin: auto; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>50 Fun Games for Students</h1>
+    <h1>Vernicle Games</h1>
+    <div class="menu" id="menu">
+        <button onclick="startGame('brickBreaker')">Brick Breaker</button>
+        <button onclick="startGame('flappyBlock')">Flappy Block</button>
+        <button onclick="startGame('reactionTimer')">Reaction Timer</button>
+        <button onclick="startGame('mazeEscape')">Maze Escape</button>
+        <button onclick="startGame('memoryMatch')">Memory Match</button>
+        <button onclick="startGame('snake')">Snake</button>
+        <button onclick="startGame('ticTacToe')">Tic-Tac-Toe</button>
+        <button onclick="startGame('dodgeBlocks')">Dodge the Blocks</button>
+        <button onclick="startGame('mathChallenge')">Math Challenge</button>
+        <button onclick="startGame('colorSwitcher')">Color Switcher</button>
+        <button onclick="startGame('wordScramble')">Word Scramble</button>
+        <button onclick="startGame('catchFalling')">Catch Falling Objects</button>
+        <button onclick="startGame('platformJumper')">Platform Jumper</button>
+        <button onclick="startGame('speedClicker')">Speed Clicker</button>
+        <button onclick="startGame('game2048')">2048</button>
+    </div>
+    
+    <div id="gameContainer" class="game-container">
+        <button onclick="backToMenu()">Back to Menu</button>
+        <canvas id="gameCanvas"></canvas>
+    </div>
 
-        <!-- Game 1 -->
-        <div class="game">
-            <h2>1. CodeCombat</h2>
-            <iframe src="https://codecombat.com/play"></iframe>
-        </div>
+    <script>
+        function startGame(game) {
+            document.getElementById('menu').style.display = 'none';
+            document.getElementById('gameContainer').style.display = 'block';
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 800;
+            canvas.height = 600;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        <!-- Game 2 -->
-        <div class="game">
-            <h2>2. Launchball</h2>
-            <iframe src="https://launchball.sciencemuseum.org.uk/"></iframe>
-        </div>
+            if (game === 'brickBreaker') {
+                startBrickBreaker(ctx, canvas);
+            } else if (game === 'flappyBlock') {
+                startFlappyBlock(ctx, canvas);
+            } else if (game === 'reactionTimer') {
+                startReactionTimer(ctx, canvas);
+            } else if (game === 'snake') {
+                startSnake(ctx, canvas);
+            } else {
+                ctx.fillStyle = 'white';
+                ctx.font = '30px Arial';
+                ctx.fillText("Coming Soon!", canvas.width / 2 - 100, canvas.height / 2);
+            }
+        }
 
-        <!-- Game 3 -->
-        <div class="game">
-            <h2>3. CrossCode</h2>
-            <iframe src="https://www.cross-code.com/en/start"></iframe>
-        </div>
+        function backToMenu() {
+            document.getElementById('menu').style.display = 'flex';
+            document.getElementById('gameContainer').style.display = 'none';
+        }
 
-        <!-- Game 4 -->
-        <div class="game">
-            <h2>4. Treasure Arena</h2>
-            <iframe src="https://www.treasurearena.com/"></iframe>
-        </div>
+        function startBrickBreaker(ctx, canvas) {
+            let ballX = canvas.width / 2, ballY = canvas.height - 30, ballDX = 2, ballDY = -2;
+            let paddleX = (canvas.width - 100) / 2, paddleWidth = 100, paddleHeight = 10;
+            let rightPressed = false, leftPressed = false;
 
-        <!-- Game 5 -->
-        <div class="game">
-            <h2>5. Missile Game</h2>
-            <iframe src="https://www.crazygames.com/game/missile-game-3d"></iframe>
-        </div>
+            document.addEventListener("keydown", keyDownHandler);
+            document.addEventListener("keyup", keyUpHandler);
 
-        <!-- Game 6 -->
-        <div class="game">
-            <h2>6. Sinuous</h2>
-            <iframe src="https://www.kongregate.com/games/Thygrrr/sinuous"></iframe>
-        </div>
+            function keyDownHandler(e) {
+                if (e.key === "Right" || e.key === "ArrowRight") rightPressed = true;
+                else if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = true;
+            }
+            function keyUpHandler(e) {
+                if (e.key === "Right" || e.key === "ArrowRight") rightPressed = false;
+                else if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = false;
+            }
 
-        <!-- Game 7 -->
-        <div class="game">
-            <h2>7. Free Rider HD</h2>
-            <iframe src="https://www.freeriderhd.com/"></iframe>
-        </div>
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
+                ctx.fillStyle = "white";
+                ctx.fill();
+                ctx.closePath();
+                ctx.fillRect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
 
-        <!-- Game 8 -->
-        <div class="game">
-            <h2>8. Escape from XP</h2>
-            <iframe src="https://www.miniclip.com/games/escape-from-xp/en/"></iframe>
-        </div>
+                if (ballX + ballDX > canvas.width - 10 || ballX + ballDX < 10) ballDX = -ballDX;
+                if (ballY + ballDY < 10) ballDY = -ballDY;
+                else if (ballY + ballDY > canvas.height - paddleHeight) {
+                    if (ballX > paddleX && ballX < paddleX + paddleWidth) ballDY = -ballDY;
+                    else return;
+                }
 
-        <!-- Game 9 -->
-        <div class="game">
-            <h2>9. 2048</h2>
-            <iframe src="https://play2048.co/"></iframe>
-        </div>
+                if (rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 7;
+                else if (leftPressed && paddleX > 0) paddleX -= 7;
 
-        <!-- Game 10 -->
-        <div class="game">
-            <h2>10. The Wizard</h2>
-            <iframe src="https://www.crazygames.com/game/the-wizard"></iframe>
-        </div>
+                ballX += ballDX;
+                ballY += ballDY;
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
 
-        <!-- Game 11 -->
-        <div class="game">
-            <h2>11. Game of Bombs</h2>
-            <iframe src="https://gameofbombs.com/"></iframe>
-        </div>
+        function startFlappyBlock(ctx, canvas) {
+            let y = canvas.height / 2, velocity = 0, gravity = 0.6;
+            document.addEventListener("keydown", () => velocity = -10);
 
-        <!-- Game 12 -->
-        <div class="game">
-            <h2>12. Pixel Race</h2>
-            <iframe src="https://www.crazygames.com/game/pixel-race"></iframe>
-        </div>
-
-        <!-- Game 13 -->
-        <div class="game">
-            <h2>13. Arena5</h2>
-            <iframe src="https://www.crazygames.com/game/arena5"></iframe>
-        </div>
-
-        <!-- Game 14 -->
-        <div class="game">
-            <h2>14. Biolab Disaster</h2>
-            <iframe src="https://playbiolab.com/"></iframe>
-        </div>
-
-        <!-- Game 15 -->
-        <div class="game">
-            <h2>15. New Super Resident Raver</h2>
-            <iframe src="https://www.crazygames.com/game/new-super-resident-raver"></iframe>
-        </div>
-
-        <!-- Game 16 -->
-        <div class="game">
-            <h2>16. Solitaire</h2>
-            <iframe src="https://www.solitr.com/"></iframe>
-        </div>
-
-        <!-- Game 17 -->
-        <div class="game">
-            <h2>17. Hearts</h2>
-            <iframe src="https://cardgames.io/hearts/"></iframe>
-        </div>
-
-        <!-- Game 18 -->
-        <div class="game">
-            <h2>18. Fireboy and Watergirl</h2>
-            <iframe src="https://www.crazygames.com/game/fireboy-and-watergirl-1-forest-temple"></iframe>
-        </div>
-
-        <!-- Game 19 -->
-        <div class="game">
-            <h2>19. Dino Game</h2>
-            <iframe src="https://chromedino.com/"></iframe>
-        </div>
-
-        <!-- Game 20 -->
-        <div class="game">
-            <h2>20. The Convergence</h2>
-            <iframe src="https://www.crazygames.com/game/the-convergence"></iframe>
-        </div>
-
-        <!-- Game 21 -->
-        <div class="game">
-            <h2>21. Sketch Out</h2>
-            <iframe src="https://www.crazygames.com/game/sketch-out"></iframe>
-        </div>
-
-        <!-- Game 22 -->
-        <div class="game">
-            <h2>22. Sinkhole</h2>
-            <iframe src="https://www.crazygames.com/game/sinkhole"></iframe>
-        </div>
-
-        <!-- Game 23 -->
-        <div class="game">
-            <h2>23. Game Boy Emulator</h2>
-            <iframe src="https://www.crazygames.com/game/game-boy-emulator"></iframe>
-        </div>
-
-        <!-- Game 24 -->
-        <div class="game">
-            <h2>24. Project Blaze Zero</h2>
-            <iframe src="https://www.crazygames.com/game/project-blaze-zero"></iframe>
-        </div>
-
-        <!-- Game 25 -->
-        <div class="game">
-            <h2>25. Geometry Wars</h2>
-
-::contentReference[oaicite:0]{index=0}
- 
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "yellow";
+                ctx.fillRect(50, y, 20, 20);
+                velocity += gravity;
+                y += velocity;
+                if (y > canvas.height - 20) y = canvas.height - 20;
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
+    </script>
+</body>
+</html>
